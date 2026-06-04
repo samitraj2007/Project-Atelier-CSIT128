@@ -2,3 +2,5 @@ node_modules/
 .env
 public/uploads/
 .cursor/
+
+atelier-small-scope-final.md
