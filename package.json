@@ -1,0 +1,19 @@
+{
+  "name": "project-atelier",
+  "version": "1.0.0",
+  "description": "ATELIER - CSIT128 PROJECT",
+  "main": "server/app.js",
+  "scripts": {
+    "start": "node server/app.js",
+    "dev": "node server/app.js"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cookie-parser": "^1.4.7",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "express-session": "^1.18.0",
+    "multer": "^1.4.5-lts.1",
+    "mysql2": "^3.11.0"
+  }
+}

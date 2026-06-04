@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Submit Artwork | ATELIER</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/tokens.css">
+  <link rel="stylesheet" href="/css/base.css">
+  <link rel="stylesheet" href="/css/components.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="logo" href="/" aria-label="ATELIER home">
+        <img src="/logo.svg" alt="ATELIER">
+      </a>
+      <nav class="site-nav">
+        <a href="/">Home</a>
+        <a href="/museum.html">Museum</a>
+        <a class="active" href="/submit.html">Submit</a>
+        <a href="/admin-login.html">Admin</a>
+      </nav>
+    </div>
+  </header>
+  <main class="container">
+    <div class="form-shell">
+      <h1>Submit Your Artwork</h1>
+      <p>All submissions are reviewed by our curation team before publication.</p>
+      <form id="submitForm" novalidate>
+        <div class="field">
+          <label for="artist_name">Artist Name</label>
+          <input id="artist_name" name="artist_name" type="text" maxlength="150">
+          <div class="error" data-error-for="artist_name"></div>
+        </div>
+        <div class="field">
+          <label for="artist_email">Email</label>
+          <input id="artist_email" name="artist_email" type="email" maxlength="255">
+          <div class="error" data-error-for="artist_email"></div>
+        </div>
+        <div class="field">
+          <label for="title">Artwork Title</label>
+          <input id="title" name="title" type="text" maxlength="255">
+          <div class="error" data-error-for="title"></div>
+        </div>
+        <div class="field">
+          <label for="year_created">Year Created</label>
+          <input id="year_created" name="year_created" type="number" min="1000" max="2100">
+          <div class="error" data-error-for="year_created"></div>
+        </div>
+        <div class="field">
+          <label for="medium">Medium</label>
+          <select id="medium" name="medium">
+            <option value="">Select medium</option>
+            <option>Oil</option>
+            <option>Watercolour</option>
+            <option>Digital</option>
+            <option>Photography</option>
+            <option>Sculpture</option>
+            <option>Mixed Media</option>
+            <option>Other</option>
+          </select>
+          <div class="error" data-error-for="medium"></div>
+        </div>
+        <div class="field">
+          <label for="description">Description (max 500 chars)</label>
+          <textarea id="description" name="description" maxlength="500"></textarea>
+          <div class="error" data-error-for="description"></div>
+        </div>
+        <div class="field">
+          <label for="image">Artwork Image (JPG, PNG, WEBP up to 10MB)</label>
+          <input id="image" name="image" type="file" accept=".jpg,.jpeg,.png,.webp,image/jpeg,image/png,image/webp">
+          <div class="error" data-error-for="image"></div>
+        </div>
+        <div class="field">
+          <label>
+            <input id="originality_confirmed" name="originality_confirmed" type="checkbox">
+            I confirm this work is original and owned by me.
+          </label>
+          <div class="error" data-error-for="originality_confirmed"></div>
+        </div>
+        <button class="button" id="submitBtn" type="submit" disabled>Submit Artwork</button>
+      </form>
+      <p id="submitMessage" class="message"></p>
+    </div>
+  </main>
+  <footer class="site-footer">
+    <div class="container">ATELIER &copy; 2026. Curated digital museum.</div>
+  </footer>
+  <script src="/js/submit.js"></script>
+</body>
+</html>

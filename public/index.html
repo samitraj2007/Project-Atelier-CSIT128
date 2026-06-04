@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ATELIER | Where art finds its permanence</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/tokens.css">
+  <link rel="stylesheet" href="/css/base.css">
+  <link rel="stylesheet" href="/css/components.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="logo" href="/" aria-label="ATELIER home">
+        <img src="/logo.svg" alt="ATELIER">
+      </a>
+      <nav class="site-nav">
+        <a class="active" href="/">Home</a>
+        <a href="/museum.html">Museum</a>
+        <a href="/submit.html">Submit</a>
+        <a href="/admin-login.html">Admin</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero container">
+      <h1>Where art finds its permanence.</h1>
+      <p>ATELIER is a curated digital museum that presents verified artworks with editorial elegance and timeless visual focus.</p>
+      <a class="button" href="/museum.html">Enter Museum</a>
+    </section>
+
+    <section class="container" style="margin-bottom: 3rem;">
+      <div class="section-header">
+        <h2>About ATELIER</h2>
+      </div>
+      <p>We offer independent artists a quiet, premium publishing space. Every artwork is reviewed before publication, ensuring a refined visual archive where quality comes first.</p>
+    </section>
+
+    <section class="container">
+      <div class="section-header">
+        <h2>Featured Verified Works</h2>
+        <a href="/museum.html">View all</a>
+      </div>
+      <div id="featuredGrid" class="art-grid"></div>
+      <p id="featuredMessage" class="message"></p>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">ATELIER &copy; 2026. Curated digital museum.</div>
+  </footer>
+  <script src="/js/home.js"></script>
+</body>
+</html>

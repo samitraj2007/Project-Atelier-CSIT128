@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Admin Login | ATELIER</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/tokens.css">
+  <link rel="stylesheet" href="/css/base.css">
+  <link rel="stylesheet" href="/css/components.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="logo" href="/" aria-label="ATELIER home">
+        <img src="/logo.svg" alt="ATELIER">
+      </a>
+      <nav class="site-nav">
+        <a href="/">Home</a>
+        <a href="/museum.html">Museum</a>
+        <a href="/submit.html">Submit</a>
+        <a class="active" href="/admin-login.html">Admin</a>
+      </nav>
+    </div>
+  </header>
+  <main class="container">
+    <div class="form-shell">
+      <h1>Admin Login</h1>
+      <form id="adminLoginForm" novalidate>
+        <div class="field">
+          <label for="username">Username</label>
+          <input id="username" name="username" type="text">
+          <div class="error" data-error-for="username"></div>
+        </div>
+        <div class="field">
+          <label for="password">Password</label>
+          <input id="password" name="password" type="password">
+          <div class="error" data-error-for="password"></div>
+        </div>
+        <button class="button" type="submit">Login</button>
+      </form>
+      <p id="loginMessage" class="message"></p>
+    </div>
+  </main>
+  <footer class="site-footer">
+    <div class="container">ATELIER &copy; 2026. Curated digital museum.</div>
+  </footer>
+  <script src="/js/admin-login.js"></script>
+</body>
+</html>
