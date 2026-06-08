@@ -2,6 +2,7 @@ const pendingList = document.getElementById("pendingList");
 const message = document.getElementById("dashboardMessage");
 const logoutBtn = document.getElementById("logoutBtn");
 
+// Prevent XSS by encoding HTML special characters
 function escapeHtml(value) {
   return String(value)
     .replaceAll("&", "&amp;")
@@ -11,6 +12,7 @@ function escapeHtml(value) {
     .replaceAll("'", "&#039;");
 }
 
+// POST verify or reject action to server
 async function moderateArtwork(id, action) {
   const response = await fetch(`/api/admin/${action}/${id}`, { method: "POST" });
   const result = await response.json();
@@ -18,12 +20,14 @@ async function moderateArtwork(id, action) {
   return result;
 }
 
+// Render pending submissions as grid of cards
 function renderPending(items) {
   if (!items.length) {
     pendingList.innerHTML = "<p>No pending submissions.</p>";
     return;
   }
 
+  // Template literal constructs submission cards with image, metadata, and actions
   pendingList.innerHTML = items.map((item) => `
     <article class="pending-item" data-id="${item.id}">
       <img src="${item.image_path}" alt="${escapeHtml(item.title)}">
@@ -41,6 +45,7 @@ function renderPending(items) {
   `).join("");
 }
 
+// Fetch pending submissions; redirect if auth token expired (401)
 async function loadPending() {
   try {
     const response = await fetch("/api/admin/pending");
@@ -57,6 +62,7 @@ async function loadPending() {
   }
 }
 
+// Event delegation: capture verify/reject button clicks on pending cards
 pendingList.addEventListener("click", async (event) => {
   const actionButton = event.target.closest("button[data-action]");
   if (!actionButton) return;
@@ -81,6 +87,7 @@ pendingList.addEventListener("click", async (event) => {
   }
 });
 
+// Clear session and return to login
 logoutBtn.addEventListener("click", async () => {
   await fetch("/api/admin/logout", { method: "POST" });
   window.location.href = "/admin-login.html";

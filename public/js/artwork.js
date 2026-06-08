@@ -1,14 +1,17 @@
+// Parse query parameter and validate artwork ID
 function readArtworkId() {
   const params = new URLSearchParams(window.location.search);
   const id = Number(params.get("id"));
   return Number.isInteger(id) && id > 0 ? id : null;
 }
 
+// Fetch single artwork by ID and render detail page
 async function loadArtwork() {
   const container = document.getElementById("artworkContainer");
   const message = document.getElementById("artworkMessage");
   const artworkId = readArtworkId();
 
+  // Guard: invalid or missing ID in URL
   if (!artworkId) {
     message.textContent = "Invalid artwork link.";
     message.classList.add("error");
@@ -20,7 +23,9 @@ async function loadArtwork() {
     if (!response.ok) throw new Error("failed");
     const item = await response.json();
 
+    // Update page title for browser history
     document.title = `${item.title} | ATELIER`;
+    // Template literal constructs two-column layout
     container.innerHTML = `
       <figure class="detail-image">
         <img src="${item.image_path}" alt="${item.title}">
@@ -34,7 +39,7 @@ async function loadArtwork() {
       </article>
     `;
 
-    // ATELIER ANIMATION — reveal detail image as it enters the viewport
+    // Lazy-load detail image via IntersectionObserver
     const detailImage = container.querySelector(".detail-image");
     if (detailImage) {
       const observer = new IntersectionObserver((entries) => {

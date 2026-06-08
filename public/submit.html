@@ -29,6 +29,7 @@
     <div class="form-shell">
       <h1>Submit Your Artwork</h1>
       <p>All submissions are reviewed by our curation team before publication.</p>
+      <!-- Multipart form for artwork submission with image upload -->
       <form id="submitForm" novalidate>
         <div class="field">
           <label for="artist_name">Artist Name</label>
@@ -74,6 +75,7 @@
           <input id="image" name="image" type="file" accept=".jpg,.jpeg,.png,.webp,image/jpeg,image/png,image/webp">
           <div class="error" data-error-for="image"></div>
         </div>
+        <!-- Originality confirmation required; unlock submit button on check -->
         <div class="field">
           <label>
             <input id="originality_confirmed" name="originality_confirmed" type="checkbox">
@@ -83,6 +85,7 @@
         </div>
         <button class="button" id="submitBtn" type="submit" disabled>Submit Artwork</button>
       </form>
+      <!-- Status feedback: submission ID or error messages -->
       <p id="submitMessage" class="message"></p>
     </div>
   </main>

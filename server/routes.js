@@ -1,3 +1,4 @@
+// API routes: artwork submission, museum display, admin curation
 const express = require("express");
 const path = require("path");
 const { pool } = require("./db");
@@ -5,8 +6,10 @@ const upload = require("./upload");
 const { requireAdmin, comparePassword } = require("./auth");
 
 const router = express.Router();
+// Valid medium values; matches HTML select options
 const mediumOptions = new Set(["Oil", "Watercolour", "Digital", "Photography", "Sculpture", "Mixed Media", "Other"]);
 
+// Convert absolute file path to relative /public path for storage in DB
 function toRelativeImagePath(absoluteFilePath) {
   const normalized = absoluteFilePath.replace(/\\/g, "/");
   const parts = normalized.split("/public/");
@@ -16,6 +19,7 @@ function toRelativeImagePath(absoluteFilePath) {
   return `/${parts[1]}`;
 }
 
+// Validate artwork submission against required fields and constraints
 function validateSubmission(body, file) {
   const errors = {};
   const currentYear = new Date().getFullYear();
@@ -39,6 +43,7 @@ function validateSubmission(body, file) {
   return errors;
 }
 
+// GET: Featured artworks for homepage (limit 4, newest verified first)
 router.get("/home-featured", async (_req, res) => {
   try {
     const [rows] = await pool.query(
@@ -54,6 +59,7 @@ router.get("/home-featured", async (_req, res) => {
   }
 });
 
+// GET: All verified artworks for museum page (chronological order)
 router.get("/museum", async (_req, res) => {
   try {
     const [rows] = await pool.query(
@@ -68,6 +74,7 @@ router.get("/museum", async (_req, res) => {
   }
 });
 
+// GET: Single artwork detail page (public, verified only)
 router.get("/artworks/:id", async (req, res) => {
   try {
     const artworkId = Number(req.params.id);
@@ -88,6 +95,7 @@ router.get("/artworks/:id", async (req, res) => {
   }
 });
 
+// POST: Accept artwork submission with image upload; creates pending review entry
 router.post("/submit-artwork", upload.single("image"), async (req, res) => {
   try {
     const errors = validateSubmission(req.body, req.file);
@@ -124,6 +132,7 @@ router.post("/submit-artwork", upload.single("image"), async (req, res) => {
   }
 });
 
+// POST: Admin login with bcrypt password verification and session creation
 router.post("/admin/login", async (req, res) => {
   try {
     const username = (req.body.username || "").trim();
@@ -132,6 +141,7 @@ router.post("/admin/login", async (req, res) => {
       return res.status(422).json({ error: "Username and password are required." });
     }
 
+    // Lookup admin by username (timing-safe comparison via bcrypt)
     const [rows] = await pool.query("SELECT id, username, password_hash FROM admins WHERE username = ? LIMIT 1", [username]);
     if (!rows.length) return res.status(401).json({ error: "Invalid credentials." });
 
@@ -139,6 +149,7 @@ router.post("/admin/login", async (req, res) => {
     const matched = await comparePassword(password, admin.password_hash);
     if (!matched) return res.status(401).json({ error: "Invalid credentials." });
 
+    // Store admin session; persists across requests via express-session
     req.session.admin = { id: admin.id, username: admin.username };
     return res.json({ message: "Login successful.", admin: req.session.admin });
   } catch (error) {
@@ -150,12 +161,14 @@ router.post("/admin/login", async (req, res) => {
   }
 });
 
+// POST: Destroy admin session and clear auth
 router.post("/admin/logout", (req, res) => {
   req.session.destroy(() => {
     res.json({ message: "Logged out." });
   });
 });
 
+// GET: Fetch all pending submissions for admin moderation dashboard (order: oldest first)
 router.get("/admin/pending", requireAdmin, async (_req, res) => {
   try {
     const [rows] = await pool.query(
@@ -170,6 +183,7 @@ router.get("/admin/pending", requireAdmin, async (_req, res) => {
   }
 });
 
+// POST: Verify pending artwork; mark as verified and record reviewer ID + timestamp
 router.post("/admin/verify/:id", requireAdmin, async (req, res) => {
   try {
     const artworkId = Number(req.params.id);
@@ -187,6 +201,7 @@ router.post("/admin/verify/:id", requireAdmin, async (req, res) => {
   }
 });
 
+// POST: Reject pending artwork; mark as rejected and record reviewer ID + timestamp
 router.post("/admin/reject/:id", requireAdmin, async (req, res) => {
   try {
     const artworkId = Number(req.params.id);

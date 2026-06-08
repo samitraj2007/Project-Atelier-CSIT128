@@ -1,17 +1,20 @@
 const ALLOWED_IMAGE_TYPES = ["image/jpeg", "image/png", "image/webp"];
 const MAX_MB = 10;
 
+// Reset all error messages in form
 function clearErrors(form) {
   form.querySelectorAll(".error").forEach((el) => {
     el.textContent = "";
   });
 }
 
+// Render field-specific validation message
 function setError(form, field, message) {
   const slot = form.querySelector(`[data-error-for="${field}"]`);
   if (slot) slot.textContent = message;
 }
 
+// Accumulate validation errors before network request
 function clientValidate(form) {
   const errors = {};
   const data = new FormData(form);
@@ -47,6 +50,7 @@ form.addEventListener("submit", async (event) => {
   message.textContent = "";
 
   const errors = clientValidate(form);
+  // Halt submission if validation errors exist
   if (Object.keys(errors).length) {
     Object.entries(errors).forEach(([key, text]) => setError(form, key, text));
     return;
@@ -60,6 +64,7 @@ form.addEventListener("submit", async (event) => {
     });
     const result = await response.json();
 
+    // Server-side validation errors or submission failure
     if (!response.ok) {
       if (result.errors) {
         Object.entries(result.errors).forEach(([key, text]) => setError(form, key, text));
@@ -75,6 +80,7 @@ form.addEventListener("submit", async (event) => {
     message.textContent = `Submission received. Reference ID: #${result.submissionId}`;
     message.className = "message success";
   } catch (_error) {
+    // Connection or parsing error
     message.textContent = "Network error while submitting artwork.";
     message.className = "message error";
   }
@@ -82,6 +88,7 @@ form.addEventListener("submit", async (event) => {
 });
 const checkbox = document.getElementById("originality_confirmed");
 const submitBtn = document.getElementById("submitBtn");
+// Toggle submit button based on originality checkbox
 checkbox.addEventListener("change", () => {
   submitBtn.disabled = !checkbox.checked;
 });

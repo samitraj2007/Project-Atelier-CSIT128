@@ -1,4 +1,4 @@
-// ATELIER ANIMATION — reveal art tiles as they enter the viewport
+// Lazy-load art tiles via IntersectionObserver for performance
 function initReveal() {
   const tiles = document.querySelectorAll(".art-tile");
   if (!tiles.length) return;
@@ -13,6 +13,7 @@ function initReveal() {
   tiles.forEach((tile) => observer.observe(tile));
 }
 
+// Fetch homepage featured works and render grid
 async function loadFeaturedWorks() {
   const grid = document.getElementById("featuredGrid");
   const message = document.getElementById("featuredMessage");
@@ -27,6 +28,7 @@ async function loadFeaturedWorks() {
       return;
     }
 
+    // Template literals construct DOM from API response
     grid.innerHTML = items.map((item) => `
       <a class="art-tile" href="/artwork.html?id=${item.id}">
         <img src="${item.image_path}" alt="${item.title}">

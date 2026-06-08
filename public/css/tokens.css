@@ -1,15 +1,21 @@
+/* CSS custom properties: semantic naming for colors, fonts, spacing */
 :root {
+  /* Palette: warm, neutral earthy tones for luxury aesthetic */
   --color-bg: #f5f3ef;
   --color-surface: #f9f7f4;
   --color-surface-offset: #ece7df;
   --color-text: #1a1816;
   --color-text-muted: #6f6a63;
   --color-border: rgba(26, 24, 22, 0.12);
-  --color-accent: #8b4a2f;
-  --color-accent-hover: #733923;
+  --color-accent: #8b4a2f; /* Burnt sienna primary action */
+  --color-accent-hover: #733923; /* Darkened for hover state */
   --color-white: #ffffff;
+  
+  /* Typography: serif display + sans-serif body for hierarchy */
   --font-display: "Cormorant Garamond", "Times New Roman", serif;
   --font-body: "Inter", "Segoe UI", sans-serif;
+  
+  /* Spacing scale: modular increments */
   --radius-sm: 6px;
   --radius-md: 12px;
   --container: 1200px;

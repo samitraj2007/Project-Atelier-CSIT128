@@ -1,9 +1,11 @@
+/* Reset default box model to content-box */
 *,
 *::before,
 *::after {
   box-sizing: border-box;
 }
 
+/* Typography and neutral defaults */
 body {
   margin: 0;
   background: var(--color-bg);
@@ -12,11 +14,13 @@ body {
   line-height: 1.6;
 }
 
+/* Responsive images without distortion */
 img {
   max-width: 100%;
   display: block;
 }
 
+/* Smooth opacity transition on link interactions */
 a {
   color: inherit;
   text-decoration: none;
@@ -27,16 +31,19 @@ a:hover { /* ATELIER ANIMATION */
   opacity: 0.65;
 }
 
+/* Constrained max-width with responsive gutters */
 .container {
   width: min(100% - 2.5rem, var(--container));
   margin-inline: auto;
 }
 
+/* Horizontal hairline separates header from content */
 .site-header {
   border-bottom: 1px solid var(--color-border);
   background: var(--color-bg);
 }
 
+/* Flexbox aligns logo and navigation with vertical centering */
 .header-inner {
   display: flex;
   justify-content: space-between;
@@ -55,6 +62,7 @@ a:hover { /* ATELIER ANIMATION */
   width: auto;
 }
 
+/* Horizontal nav layout with uniform spacing */
 .site-nav {
   display: flex;
   gap: var(--space-4);
@@ -62,15 +70,18 @@ a:hover { /* ATELIER ANIMATION */
   letter-spacing: 0.03em;
 }
 
+/* Accent color signals current page to user */
 .site-nav a.active {
   color: var(--color-accent);
 }
 
+/* Main content reveal animation on page load */
 main {
   padding-block: var(--space-6);
   animation: atelier-reveal 700ms cubic-bezier(0.16, 1, 0.3, 1) both; /* ATELIER ANIMATION */
 }
 
+/* Display serif for hierarchy; tight line-height for elegance */
 h1,
 h2,
 h3 {
@@ -79,11 +90,13 @@ h3 {
   margin: 0 0 var(--space-3);
 }
 
+/* Muted text color for secondary content */
 p {
   margin: 0 0 var(--space-3);
   color: var(--color-text-muted);
 }
 
+/* Footer hairline with muted text */
 .site-footer {
   border-top: 1px solid var(--color-border);
   padding: var(--space-4) 0;
@@ -91,21 +104,25 @@ p {
   color: var(--color-text-muted);
 }
 
+/* Flash message container for status feedback */
 .message {
   margin-top: var(--space-3);
   font-size: 0.92rem;
 }
 
+/* Semantic color: success state (green) */
 .message.success {
   color: #1f5f35;
 }
 
+/* Semantic color: error state (red) */
 .message.error {
   color: #8f2d2d;
 }
 
 /* ── ATELIER ANIMATIONS ─────────────────────────────────────────────── */
 
+/* Staggered fade-in with subtle upward motion for content entry */
 @keyframes atelier-reveal { /* ATELIER ANIMATION */
   from {
     opacity: 0;
@@ -117,6 +134,7 @@ p {
   }
 }
 
+/* Downward slide for dropdown messages and alerts */
 @keyframes atelier-slide-down { /* ATELIER ANIMATION */
   from {
     opacity: 0;
@@ -128,7 +146,7 @@ p {
   }
 }
 
-/* 3 · Nav links — ::after underline expands on hover */ /* ATELIER ANIMATION */
+/* Expanding underline on nav hover via ::after pseudo-element */
 .site-nav a {
   position: relative;
 }
@@ -146,7 +164,7 @@ p {
   transition: transform 300ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.site-nav a:hover { /* ATELIER ANIMATION — underline handles the signal; keep full opacity */
+.site-nav a:hover { /* ATELIER ANIMATION — underline signals state; maintain opacity */
   opacity: 1;
 }
 
@@ -154,7 +172,7 @@ p {
   transform: scaleX(1);
 }
 
-/* 9 · Form inputs — border + subtle glow on focus */ /* ATELIER ANIMATION */
+/* Form inputs animate focus state with border and subtle glow */
 .field input,
 .field select,
 .field textarea {
@@ -169,13 +187,13 @@ p {
   box-shadow: 0 0 0 2px rgba(139, 74, 47, 0.08);
 }
 
-/* 10 · Flash messages — slide down when class is applied */ /* ATELIER ANIMATION */
+/* Success/error messages slide in from top */
 .message.success,
 .message.error {
   animation: atelier-slide-down 400ms cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
-/* Reduced motion — silence all transitions and animations */ /* ATELIER ANIMATION */
+/* Respect user motion preferences by disabling animations */
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
